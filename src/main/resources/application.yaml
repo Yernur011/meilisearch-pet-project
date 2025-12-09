@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: meilisearch
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:35432/test
+    username: test
+    password: test
+  mvc:
+    apiversion:
+      default: 1.0     # ?????? ?? ?????????, ???? ?????? ?? ??????
+      use:
+        header: API-Version
+meilisearch:
+  host: http://localhost:7700
+  master-key: masterKey
