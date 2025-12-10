@@ -29,33 +29,28 @@ public class MeilisearchController {
         return ResponseEntity.ok(service.create(dto));
     }
 
-    // READ one
     @GetMapping("/{id}")
     public @NonNull ResponseEntity<ProductDto> get(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    // READ all
     @GetMapping
     public @NonNull ResponseEntity<List<ProductDto>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
-    // UPDATE
     @PutMapping("/{id}")
     public @NonNull ResponseEntity<ProductDto> update(@PathVariable Long id,
                                              @RequestBody ProductDto dto) throws Exception {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    // DELETE
     @DeleteMapping("/{id}")
     public @NonNull ResponseEntity<Void> delete(@PathVariable Long id) throws Exception {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
-    // SEARCH (Meilisearch)
     @GetMapping("/search")
     public @NonNull ResponseEntity<Searchable> search(
             @RequestParam String q,

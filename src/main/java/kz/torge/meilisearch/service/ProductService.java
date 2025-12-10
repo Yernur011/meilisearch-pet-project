@@ -17,7 +17,6 @@ public class ProductService {
     private final ProductEntityRepository productRepository;
     private final ProductSearchService productSearchService;
 
-
     @Transactional
     public ProductDto create(ProductDto dto) throws Exception {
         ProductEntity entity = new ProductEntity();
@@ -28,7 +27,6 @@ public class ProductService {
 
         ProductEntity saved = productRepository.save(entity);
 
-        // 🔥 индексируем в Meilisearch при создании
         productSearchService.indexProduct(saved);
 
         return ProductDto.fromEntity(saved);
@@ -46,7 +44,6 @@ public class ProductService {
 
         ProductEntity saved = productRepository.save(entity);
 
-        // 🔥 переиндексируем при обновлении
         productSearchService.indexProduct(saved);
 
         return ProductDto.fromEntity(saved);
@@ -56,7 +53,6 @@ public class ProductService {
     public void delete(Long id) throws Exception {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
-            // 🔥 удаляем из индекса
             productSearchService.deleteProduct(id);
         }
     }
